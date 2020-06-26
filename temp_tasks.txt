@@ -1,0 +1,11 @@
+SELECT(Data[Name],[Color] = [_THISROW].[Color Choice])
+
+
+SELECT(Graduacoes[Nome], [Modalidade]=[_THISROW].[Modalidade])
+
+
+[_THIS].[Modalidade] =  [Modalidade]
+
+
+Os valores contantes na proposta correspondem a uma parcela.
+O valor anual totaliza 13.082,04.
