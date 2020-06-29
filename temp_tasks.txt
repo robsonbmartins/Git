@@ -9,3 +9,40 @@ SELECT(Graduacoes[Nome], [Modalidade]=[_THISROW].[Modalidade])
 
 Os valores contantes na proposta correspondem a uma parcela.
 O valor anual totaliza 13.082,04.
+
+PROJETO 3CX 
+
+
+Comercial  1 -> 0800 quando ocupado ->  0817 quando ocupado -> 0900
+Financeiro 2 -> 0980 - > quando ocupado 0949 quando ocupado -> 0900
+Compras*/Suprimentos    3 -> 0917 - > quando ocupado 0948 quando ocupado -> 0900
+*SAC -> 0950
+
+
+
+
+
+Implantação:
+	IP Fixo configurado.
+	Mensagens de Push Notification configuradas via - Firebase
+	Tradução dos anuncios e audios para Portugues com opção de Espanhol
+	Adicionado logo da conferencia de video.
+	Adicionado permissão de gerenciamento remoto para o revendedor (PlugTools)
+Implantação Pendencias:
+
+	Lista de contatos CSV ou Integração 365 (https://www.3cx.com/docs/office-365-integration/)
+		FirstΝame,LastΝame,Company,Mobile,Home,Business,Email,BusinessFax
+		Jules,Verne,Imagine Inc.,979755868,255645622,255633564,jules@imagine.kom,82503639
+
+	Alterar "Configurações Gerais" em configurações -> Telefonista
+	Retirar do estacionamento automaticamente as chamadas
+	Musicas de estacionamento de chamadas.
+	Criação dos Grupos
+
+Segurança:
+	Adicionado recurso de segurança - Blacklist 3CX Anti Hacking Defense Program list
+	Alteração do nome do usuário administrador admin.
+Segurança Pendencias:
+	Blacklist Allow - Paraguai IP
+
+
