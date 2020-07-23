@@ -26,21 +26,20 @@ class Users with ChangeNotifier {
     if (user == null) {
       return;
     }
-
+    //altera
     if (user.id != null &&
-        !user.id.trim().isNotEmpty &&
+        user.id.trim().isNotEmpty &&
         _items.containsKey(user.id)) {
       _items.update(
         user.id,
-        (value) => User(
+        (_) => User(
           id: user.id,
           name: user.name,
           email: user.email,
           avatarUrl: user.avatarUrl,
         ),
       );
-    } //altera
-    else {
+    } else {
       //adicionar
       final id = Random()
           .nextDouble()
@@ -57,9 +56,14 @@ class Users with ChangeNotifier {
       );
     }
 
-    //adicionar
-    //ou alterar
-
     notifyListeners(); //atualiza tela - provider notificado
+  }
+
+  //remove o usuario
+  void remove(User user) {
+    if (user != null && user.id != null) {
+      _items.remove(user.id);
+      notifyListeners();
+    }
   }
 }
