@@ -1,6 +1,6 @@
 {
-    "name": "flutter_responsivo",
-    "short_name": "flutter_responsivo",
+    "name": "flutter_web",
+    "short_name": "flutter_web",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
