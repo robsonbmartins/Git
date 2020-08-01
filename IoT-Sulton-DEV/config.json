@@ -1,0 +1,41 @@
+{
+part: [
+{
+p: 1,
+n: "Passivos Internos",
+enable: true
+initArm: false
+},
+...
+],
+zon: [
+{
+z: 1,
+n: "Pas Sala",
+part: [1],
+eWired:true,
+eWireless:true,
+zIntSeg:false,
+zTemp:false,
+z24h:false,
+zChime:false,
+zCrit:false
+}
+
+],
+zonG: {
+eIntSeg:true,
+tIntSeg:30,
+tIntSegAt:4,
+beepIntSeg:false,
+eTOut:true,
+beepTOut:false,
+tOut:30,
+eTEntry:true,
+beepEntry:false,
+tEntry:30, //Tempo de Entrada (10 a 900 seg)
+beepChime:true, //Beep para função
+ciclos:4 //Ciclos de disparo para bloqueio
+},
+par:{
+func:"arm dis
