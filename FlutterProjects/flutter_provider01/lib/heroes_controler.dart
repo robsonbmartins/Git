@@ -9,7 +9,7 @@ class HeroesControler extends ChangeNotifier {
     HeroModel(name: "Homem Aranha"),
     HeroModel(name: "Fin o Humano"),
     HeroModel(name: "Robson"),
-    HeroModel(name: "Arthur"),
+    HeroModel(name: "Arthur", isFavorte: true),
   ];
 
   checkFavorite(HeroModel model) {

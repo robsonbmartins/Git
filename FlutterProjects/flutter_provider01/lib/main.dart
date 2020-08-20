@@ -16,14 +16,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<HeroesControler>.value(
           value: HeroesControler(),
         )
-        //<HeroesControler> permite recuperar os valores "tipando"
-        //"extends ChangeNotifier" ------ permite notificar a tela das alterações do provider
-
-        /* *********** porem é necessario usar um tipo especifico de "provider" ----- "ChangeNofifierProvider"       
-        Provider<HeroesControler>.value(
-          value: HeroesControler(),
-        ) 
-        */
       ],
       child: MaterialApp(
         title: 'Flutter Provider',

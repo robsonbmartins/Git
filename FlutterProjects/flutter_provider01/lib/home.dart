@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         //agora basta acessaro metodo checkFavorite passndo model
       },
       title: Text(model.name),
+      //trailing faz um teste para setar um parametro ou outro
       trailing: model.isFavorte
           ? Icon(
               Icons.star,
@@ -53,11 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Provider"),
+        //Consumer recupera os dados do PROVIDER para uso em qualquer local da aplicação
         leading: Consumer<HeroesControler>(
             builder: (context, heroesControler, widget) {
           return Center(
             child: Text(
-              "${heroesControler.heroes.where((i) => i.isFavorte).length}",
+              "F = ${heroesControler.heroes.where((i) => i.isFavorte).length}",
               style: TextStyle(fontSize: 18),
             ),
           );
