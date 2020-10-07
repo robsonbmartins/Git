@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "19465678227",
-    "firebase_url": "https://prd-sulton.firebaseio.com",
-    "project_id": "prd-sulton",
-    "storage_bucket": "prd-sulton.appspot.com"
+    "project_number": "558667669028",
+    "firebase_url": "https://sulton-dev.firebaseio.com",
+    "project_id": "sulton-dev",
+    "storage_bucket": "sulton-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:19465678227:android:2619853a93f0d63b4e8c66",
+        "mobilesdk_app_id": "1:558667669028:android:89751c515252b4755002b1",
         "android_client_info": {
           "package_name": "com.sulton.alarme"
         }
       },
       "oauth_client": [
         {
-          "client_id": "19465678227-nuqof72jsea3juipqbhhj7fnre8lkrcl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sulton.alarme",
-            "certificate_hash": "96323e034faaedba177eed71ff74733a7066b0f1"
-          }
-        },
-        {
-          "client_id": "19465678227-0ad0j9j98si132ecbiqgtfc9fgjljrrs.apps.googleusercontent.com",
+          "client_id": "558667669028-13knk88s9g5t4v9og8c15c361q9nvgfa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD8uR4ElV-PjEJmnHHVFeM7csuxXgmJ4fc"
+          "current_key": "AIzaSyBfoBR-MO-zHWy8I4jvmY0PYSdmRNfCNQY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "19465678227-0ad0j9j98si132ecbiqgtfc9fgjljrrs.apps.googleusercontent.com",
+              "client_id": "558667669028-13knk88s9g5t4v9og8c15c361q9nvgfa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
