@@ -12,9 +12,15 @@ class CAS with ChangeNotifier {
   //static const _baseUrl = "https://dev-sulton.firebaseio.com/";
   final db = Firestore.instance;
 
-  final Map<String, CA> _items = {...DUMMY_CAS};
+  Map<String, CA> _items;
 
   List<CA> get all {
+    db
+        .collection('')
+        .where('userId', isEqualTo: '')
+        .getDocuments()
+        .then((value) => value.documents.map((e) => print(e)));
+
     return [
       ..._items.values
     ]; //retorna clone dos dados através do operador "..." spread
