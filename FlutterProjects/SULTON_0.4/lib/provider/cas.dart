@@ -41,9 +41,7 @@ class CAS with ChangeNotifier {
       return;
     }
     //altera --- Este IF verifica se o ID já existe, caso exita ele edita, caso contrario ele adiciona
-    if (ca.mac != null &&
-        ca.mac.trim().isNotEmpty &&
-        _items.containsKey(ca.mac)) {
+    if (ca.mac != null && ca.mac.trim().isNotEmpty) {
       //ATUALIZA ---------- cria uma string e envia via post na tabela cas.json do firebase
 
       final response = await db
@@ -73,7 +71,7 @@ class CAS with ChangeNotifier {
       /*
       final id = json.decode(response.body)['name'];
       print(json.decode(response.body)); 
-      */
+    
       // RETORNO ----> {name: -MCy6aM5P2EZtSR8eDih}
 
       _items.update(
@@ -86,7 +84,7 @@ class CAS with ChangeNotifier {
           enable: ca.enable,
         ),
       );
-
+  */
       notifyListeners();
     } else {
       //ADICIONA -----------cria uma string e envia via post na tabela cas.json do firebase
@@ -121,9 +119,9 @@ class CAS with ChangeNotifier {
       //final id = Random().nextDouble().toString();
       //Gera um ID randomico via "import 'dart:math';"
 
-      _items.putIfAbsent(
+      /* _items.putIfAbsent(
         ca.mac,
-        () => CA(
+      () => CA(
           id: ca.id,
           name: ca.name,
           mac: ca.mac,
@@ -131,6 +129,7 @@ class CAS with ChangeNotifier {
           enable: ca.enable,
         ),
       );
+      */
     }
 
     notifyListeners(); //atualiza tela - provider notificado
