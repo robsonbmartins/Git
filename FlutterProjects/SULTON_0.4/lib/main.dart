@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/provider/cas.dart';
+import 'package:flutter_crud/provider/login.dart';
 import 'package:flutter_crud/provider/logs.dart';
 import 'package:flutter_crud/routes/app_routes.dart';
 import 'package:flutter_crud/views/ca_form.dart';
 import 'package:flutter_crud/views/ca_list.dart';
+import 'package:flutter_crud/views/ca_login.dart';
 import 'package:flutter_crud/views/log_list.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,8 +50,10 @@ class MyApp extends StatelessWidget {
         home: CAList(),
         */
         routes: {
-          AppRoutes.HOME: (_) =>
-              CAList(), //Não passa nenhum (ctx) "contexto" (_) "sem contexto"
+          AppRoutes.CA_LOGIN: (_) => CALogin(auth: new Auth()),
+          AppRoutes.HOME: (_) => CAList(
+                auth: new Auth(),
+              ), //Não passa nenhum (ctx) "contexto" (_) "sem contexto"
           AppRoutes.CA_FORM: (_) =>
               CAForm(), //Não passa nenhum (ctx) "contexto" (_) "sem contexto"
           AppRoutes.CA_LOGS: (_) =>
