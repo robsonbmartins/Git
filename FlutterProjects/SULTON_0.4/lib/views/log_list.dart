@@ -21,10 +21,11 @@ class CALogs extends StatelessWidget {
     super.initState();
   }
 */
+  final CA ca;
+  CALogs({this.ca});
   @override
   Widget build(BuildContext context) {
     final Logs log = Provider.of(context);
-    CA ca = ModalRoute.of(context).settings.arguments;
     var logs = Firestore.instance.collection('logs').document(ca.id).get();
     var events = Firestore.instance
         .collection('logs')
@@ -40,11 +41,13 @@ class CALogs extends StatelessWidget {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return Text('Something went wrong');
+              return Text('Não foi possível carregar registros');
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading");
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
 
             return new ListView(

@@ -52,7 +52,7 @@ class CAS with ChangeNotifier {
         "mac": ca.mac,
         "avatarUrl": ca.avatarUrl,
         "enable": ca.enable,
-      });
+      }, merge: true);
 /*
       final response = await http.patch(
         "$_baseUrl/cas/${ca.id}.json",
@@ -106,7 +106,7 @@ class CAS with ChangeNotifier {
         "mac": ca.mac,
         "avatarUrl": ca.avatarUrl,
         "enable": ca.enable,
-      });
+      }, merge: true);
 
       //captura o ID da resposta http do firebase
       //final mac = ca.mac;

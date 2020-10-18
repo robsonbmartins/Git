@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/components/ca_tile.dart';
 import 'package:flutter_crud/provider/login.dart';
@@ -15,26 +16,27 @@ import '../models/ca.dart';
 class CAList extends StatelessWidget {
   final BaseAuth auth;
 
-  CAList({this.auth});
+  final FirebaseUser loggedUser;
+  CAList({this.auth, this.loggedUser});
 
   @override
   Widget build(BuildContext context) {
-    var user = auth.getUsuario();
 /*  
     Substituido a partir do momento que se passou a ustilizar o provider
     final ca = {...DUMMY_USERS}; //operador spred ...
 */
-    // if (auth.getUsuario() == null) {
-    //   Navigator.of(context).pushNamed(
-    //     AppRoutes.CA_LOGIN,
-    //     arguments: null,
-    //   );
-    // }
+    if (auth.usuarioAtual() == null) {
+      Navigator.of(context).pushNamed(
+        AppRoutes.CA_LOGIN,
+        arguments: null,
+      );
+    }
+    //auth.signOut();
     final CAS ca = Provider.of(context);
     //final CA ca = Provider.of(context, listen: false);//Não notifica esta interface listen: false
     var cas = Firestore.instance
         .collection('device-configs')
-        .where('userId', isEqualTo: '123')
+        .where('userId', isEqualTo: loggedUser.uid)
         .getDocuments();
     return Scaffold(
         appBar: AppBar(
@@ -76,11 +78,13 @@ class CAList extends StatelessWidget {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return Text('Something went wrong');
+              return Text('Não foi possível carregar registros');
             }
 
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text("Loading");
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
 
             return new ListView(
