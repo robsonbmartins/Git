@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../provider/login.dart';
-import 'dart:async';
 
 class CALogin extends StatefulWidget {
   CALogin({this.auth, this.onSignedIn, this.onSignedOut});
@@ -16,6 +20,83 @@ class _LoginState extends State<CALogin> {
   String _email;
   String _senha;
   bool usuario = false;
+
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 1), () {
+      if (Platform.isAndroid) {
+        _fcm.requestNotificationPermissions();
+        _fcm.configure(
+            onMessage: (Map<String, dynamic> message) async {
+              print("onMessage: $message");
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: ListTile(
+                    title: Text(message['notification']['title']),
+                    subtitle: Text(message['notification']['body']),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Ok'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+              );
+              return;
+            },
+            onBackgroundMessage:  (Map<String, dynamic> message) async {
+              print("onBackgroundMessage: $message");
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: ListTile(
+                    title: Text(message['notification']['title']),
+                    subtitle: Text(message['notification']['body']),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Ok'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+              );
+              return;
+            },,
+            onLaunch: (Map<String, dynamic> message) async {
+              print("onLaunch: $message");
+              //_navigateToItemDetail(message);
+              return;
+            },
+            onResume: (Map<String, dynamic> message) async {
+              print("onResume: $message");
+              //_navigateToItemDetail(message);
+              return;
+            });
+      }
+    });
+  }
+
+  Future<dynamic> myBackgroundMessageHandler(
+      Map<String, dynamic> message) async {
+    if (message.containsKey('data')) {
+      // Handle data message
+      final dynamic data = message['data'];
+    }
+
+    if (message.containsKey('notification')) {
+      // Handle notification message
+      final dynamic notification = message['notification'];
+    }
+
+    // Or do other work.
+  }
+
   bool validateAndSave() {
     final form = formKey.currentState;
     if (form.validate()) {
@@ -33,13 +114,21 @@ class _LoginState extends State<CALogin> {
           usuario = true;
         });
         await widget.auth.signInEmailSenha(_email, _senha).then((userid) async {
-          print(userid);
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+          setState(() {
+            usuario = false;
+          });
+          var user = await widget.auth.usuarioAtual();
+          String fcmToken = await _fcm.getToken();
+
+          _db.collection('users').document(user.uid).setData({
+            'token': fcmToken,
+            'createdAt': FieldValue.serverTimestamp(), // optional
+            'platform': Platform.operatingSystem // optional
+          }, merge: true);
+          Navigator.of(context).pushNamed('home', arguments: user);
         }).catchError((onError) {
           onSignedInError();
         });
-        widget.onSignedIn();
       } catch (e) {
         print(e);
       }
@@ -52,16 +141,14 @@ class _LoginState extends State<CALogin> {
   }
 
   Widget build(BuildContext context) {
+    widget.auth.usuarioAtual().then((user) async {
+      if (user != null) {
+        Navigator.of(context).pushNamed('home', arguments: user);
+      }
+    });
     return new Scaffold(
         appBar: new AppBar(
           title: new Text('Login'),
-          leading: new FlatButton(
-            child: new Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: _voltar,
-          ),
         ),
         body: ModalProgressHUD(
           child: new Container(
@@ -153,7 +240,10 @@ class _LoginState extends State<CALogin> {
       title: new Text("Erro ao entrar"),
       content: new Text("Verifique suas credenciais e tente novamente."),
     );
+    setState(() {
+      usuario = false;
+    });
     showDialog(context: context, child: alert);
-    widget.onSignedOut();
+    //widget.onSignedOut();
   }
 }

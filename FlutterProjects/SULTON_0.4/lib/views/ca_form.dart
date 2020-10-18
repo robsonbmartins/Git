@@ -4,6 +4,8 @@ import 'package:flutter_crud/provider/cas.dart';
 import 'package:provider/provider.dart';
 
 class CAForm extends StatefulWidget {
+  final CA ca;
+  CAForm({this.ca});
   @override
   _CAFormState createState() => _CAFormState();
 }
@@ -27,7 +29,7 @@ class _CAFormState extends State<CAForm> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final CA ca = ModalRoute.of(context).settings.arguments;
+    final CA ca = widget.ca;
     //carrega em CA o conteudo através do metodo de carga
     _loadFormData(ca);
   }
