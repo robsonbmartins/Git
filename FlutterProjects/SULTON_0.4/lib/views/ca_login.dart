@@ -29,55 +29,51 @@ class _LoginState extends State<CALogin> {
     Future.delayed(Duration(seconds: 1), () {
       if (Platform.isAndroid) {
         _fcm.requestNotificationPermissions();
-        _fcm.configure(
-            onMessage: (Map<String, dynamic> message) async {
-              print("onMessage: $message");
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  content: ListTile(
-                    title: Text(message['notification']['title']),
-                    subtitle: Text(message['notification']['body']),
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('Ok'),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
+        _fcm.configure(onMessage: (Map<String, dynamic> message) async {
+          print("onMessage: $message");
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: ListTile(
+                title: Text(message['notification']['title']),
+                subtitle: Text(message['notification']['body']),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Ok'),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-              );
-              return;
-            },
-            onBackgroundMessage:  (Map<String, dynamic> message) async {
-              print("onBackgroundMessage: $message");
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  content: ListTile(
-                    title: Text(message['notification']['title']),
-                    subtitle: Text(message['notification']['body']),
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('Ok'),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
+              ],
+            ),
+          );
+          return;
+        }, onBackgroundMessage: (Map<String, dynamic> message) async {
+          print("onBackgroundMessage: $message");
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: ListTile(
+                title: Text(message['notification']['title']),
+                subtitle: Text(message['notification']['body']),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Ok'),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-              );
-              return;
-            },,
-            onLaunch: (Map<String, dynamic> message) async {
-              print("onLaunch: $message");
-              //_navigateToItemDetail(message);
-              return;
-            },
-            onResume: (Map<String, dynamic> message) async {
-              print("onResume: $message");
-              //_navigateToItemDetail(message);
-              return;
-            });
+              ],
+            ),
+          );
+          return;
+        }, onLaunch: (Map<String, dynamic> message) async {
+          print("onLaunch: $message");
+          //_navigateToItemDetail(message);
+          return;
+        }, onResume: (Map<String, dynamic> message) async {
+          print("onResume: $message");
+          //_navigateToItemDetail(message);
+          return;
+        });
       }
     });
   }
