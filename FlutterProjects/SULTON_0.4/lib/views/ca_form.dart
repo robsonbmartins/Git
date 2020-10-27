@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_crud/models/ca.dart';
 import 'package:flutter_crud/provider/cas.dart';
+import 'package:flutter_crud/provider/login.dart';
 import 'package:provider/provider.dart';
 
 class CAForm extends StatefulWidget {
@@ -15,6 +17,7 @@ class _CAFormState extends State<CAForm> {
   bool _isLoading = false;
 
   final Map<String, String> _formData = {};
+  FirebaseUser loggedUser = null;
 
   void _loadFormData(CA ca) {
     //carrega valores apenas for edição, se for cadastro novo usuario escapa do if
@@ -39,6 +42,8 @@ class _CAFormState extends State<CAForm> {
     /*TESTA NO CONSOLE IMPREÇAO DA VARIAVEL
     print(CA.name); 
     */
+    BaseAuth auth = new Auth();
+    auth.usuarioAtual().then((value) => loggedUser = value);
     return Scaffold(
       appBar: AppBar(
         title: Text("Configurações"),
@@ -66,13 +71,13 @@ class _CAFormState extends State<CAForm> {
                 //carrega conteudo do formulario no provider
                 print(_formData['id']);
                 await Provider.of<CAS>(context, listen: false).put(
-                  CA(
-                    id: _formData['id'],
-                    name: _formData['name'],
-                    mac: _formData['mac'],
-                    avatarUrl: _formData['avatarUrl'],
-                  ),
-                );
+                    CA(
+                      id: _formData['id'],
+                      name: _formData['name'],
+                      mac: _formData['mac'],
+                      avatarUrl: _formData['avatarUrl'],
+                    ),
+                    loggedUser.uid);
 
                 //Altera o stado da variavel booleana que exibe a ampulheta em caso de true
                 setState(() {

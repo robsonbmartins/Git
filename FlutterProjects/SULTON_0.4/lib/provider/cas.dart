@@ -36,7 +36,7 @@ class CAS with ChangeNotifier {
 
   //ALTERA OU ADICIONA
   //void put(CA ca) { //Foi adicionado o metodo "async" que permite gravação assincrona na database
-  Future<void> put(CA ca) async {
+  Future<void> put(CA ca, String id) async {
     if (ca == null) {
       return;
     }
@@ -52,6 +52,7 @@ class CAS with ChangeNotifier {
         "mac": ca.mac,
         "avatarUrl": ca.avatarUrl,
         "enable": ca.enable,
+        "userId": id
       }, merge: true);
 /*
       final response = await http.patch(
