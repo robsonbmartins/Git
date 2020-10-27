@@ -1,0 +1,18 @@
+# Miscellaneous
+
+# IntelliJ related
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+
+# Web related
+
+# Symbolication related
+
+# Obfuscation related
+# Exceptions to above rules.
+**/sulton-iot-core/*
